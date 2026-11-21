@@ -50,6 +50,34 @@ class Extract(unittest.TestCase):
         self.assertEqual(self.trip["trip"], {"start": "2026-04-10", "end": "2026-04-12"})
 
 
+class ExtractStacked(unittest.TestCase):
+    """Real-mail layouts (synthetic values): stacked airline legs, IHG-style stay with a car ad."""
+    @classmethod
+    def setUpClass(cls):
+        cls.trip = tw.extract([os.path.join(FIX, "emails-stacked.json")])
+        cls.items = cls.trip["items"]
+
+    def test_kinds(self):
+        self.assertEqual([i["kind"] for i in self.items], ["flight"] * 3 + ["stay"])
+
+    def test_stacked_legs(self):
+        got = [(i["flight"], i["date"], i["from"], i["to"], i["depart"], i["arrive"]) for i in self.items[:3]]
+        self.assertEqual(got, [
+            ("AA 2201", "2026-10-15", "SAT", "DFW", "6:10 AM", "7:15 AM"),
+            ("AA 2302", "2026-10-15", "DFW", "BOS", "8:40 AM", "1:05 PM"),
+            ("AA 2403", "2026-10-19", "BOS", "SAT", "5:20 PM", "9:35 PM")])
+        self.assertEqual(self.items[0]["confirmation"], "QZPLMK")
+
+    def test_stay_not_car(self):
+        s = self.items[3]
+        self.assertEqual(s["name"], "Example Inn & Suites Riverside - Millbrook North")
+        self.assertEqual((s["check_in"], s["check_out"]), ("2026-10-15", "2026-10-19"))
+        self.assertEqual((s["check_in_time"], s["check_out_time"]), ("3:00 pm", "11:00 am"))
+        self.assertEqual(s["address"], "123 Sample Mill Road Riverside MA 01999 United States")
+        self.assertEqual(s["phone"], "15555550123")
+        self.assertEqual(s["confirmation"], "10203040")
+
+
 class Dates(unittest.TestCase):
     def test_parse_forms(self):
         self.assertEqual(tw.parse_date("Saturday, November 21", 2026), "2026-11-21")

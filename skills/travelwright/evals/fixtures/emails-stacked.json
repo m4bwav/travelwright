@@ -1,0 +1,14 @@
+[
+ {
+  "subject": "Fwd: Your trip confirmation (SAT - BOS)",
+  "from": "pat.sample@example.org",
+  "date": "2026-08-03T14:00:00Z",
+  "body": "---------- Forwarded message ---------\nFrom: Example Airlines <no-reply@info.example.com>\nDate: Mon, Aug 3, 2026 at 9:12 AM\nSubject: Your trip confirmation (SAT - BOS)\nTo: <casey.sample@example.org>\n\nHere's your itinerary\n[image: Example Airlines home]\n<https://link.example.com/ls/click?upn=abc>\nCheck in on the app 24 hours before your trip and get\nyour mobile boarding pass.\nConfirmation code: QZPLMK\nThursday, October 15, 2026\n[image: airplane]\nSAT\nSan Antonio\n6:10 AM\nAA 2201\n[image: destination]\nDFW\nDallas Fort Worth\n7:15 AM\nSeat: 14A, 14B, 14C\nClass: Economy (N)\nMeals:\n[image: airplane]\nDFW\nDallas Fort Worth\n8:40 AM\nAA 2302\n[image: destination]\nBOS\nBoston Logan\n1:05 PM\nSeat: 22A, 22B, 22C\nClass: Economy (N)\nMeals: Refreshment\nMonday, October 19, 2026\n[image: airplane]\nBOS\nBoston Logan\n5:20 PM\nAA 2403\n[image: destination]\nSAT\nSan Antonio\n9:35 PM\nSeat: 9D, 9E, 9F\nClass: Economy (G)\nMeals:\nManage your trip\n<https://link.example.com/ls/click?upn=def>\n"
+ },
+ {
+  "subject": "Fwd: Your reservation at Example Inn & Suites Riverside - Millbrook North is confirmed. #10203040 - 15 Oct 2026",
+  "from": "casey.sample@example.org",
+  "date": "2026-08-04T02:00:00Z",
+  "body": "---------- Forwarded message ---------\nFrom: Example Inn <reservations@tx.example.com>\nDate: Tue, Aug 4, 2026 at 8:00 PM\nSubject: Your reservation at Example Inn & Suites Riverside -\nMillbrook North is confirmed. #10203040 - 15 Oct 2026\n\nCasey, your reservation is confirmed!\n\nConfirmation #10203040\n[image: Example Inn & Suites Riverside - Millbrook North]\n<https://click.tx.example.com/?qs=a>\n\nAddress:\n\n123 Sample Mill Road,\n<https://www.google.com/maps/search/123+Sample+Mill+Road>\n\n<https://www.google.com/maps/search/123+Sample+Mill+Road>\nRiverside,\n<https://www.google.com/maps/search/123+Sample+Mill+Road>\nMA\n<https://www.google.com/maps/search/123+Sample+Mill+Road>\n 01999 United States\n<https://www.google.com/maps/search/123+Sample+Mill+Road>\n\nFront Desk:\n\n15555550123 <+15555550123>\n\nDates\n\n15 Oct 2026 *- * 19 Oct 2026\n\nCheck in 3:00 pm / Check out 11:00 am\n\nReservation\n\n1 Room, 2 Adults, 1 Child\n\nSummary of charges\n\n4 nights stay\n\n[image: Car rental]\n\nCar rental\n\nRent a car for your trip\n\nReserve a car\n<https://click.tx.example.com/?qs=b>\n"
+ }
+]
