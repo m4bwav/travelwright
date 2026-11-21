@@ -1,0 +1,4 @@
+wide cinematic painting of a family's front hallway at dawn before a trip, seen from a low angle: two open suitcases on the floor half packed with folded clothes, a small child's backpack with a stuffed rabbit peeking out, a car seat by the door, a paper checklist on a clipboard with tick marks, a printed boarding pass and a map on a side table, an open laptop showing an envelope icon, warm window light, deep teal shadows, painterly oil texture, calm and uncluttered, no readable text, no letters, no logos
+
+Model: Z-Image Turbo (z_image_turbo_bf16), 9 steps, cfg 1.0, res_multistep/simple, 1536x640, workflow banner-workflow.api.json, rendered on the Mac host.
+Chosen: seed 111 of four (111, 222, 333, 444): one car seat, open suitcases, backpack with rabbit, laptop mail icon; the least cluttered. Rendered 2026-11-20.

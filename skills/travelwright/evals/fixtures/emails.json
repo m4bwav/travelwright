@@ -1,0 +1,10 @@
+[
+ {"subject": "Your trip confirmation: Denver (DEN)", "from": "Example Air <no-reply@example.com>", "date": "Mon, 02 Mar 2026 10:00:00 -0600",
+  "body": "<html><body><p>Thanks for booking. Record locator: QWERTY</p><table><tr><td>Fri, Apr 10, 2026</td></tr><tr><td>UA 1234</td><td>AUS 7:05 AM</td><td>DEN 8:40 AM</td></tr><tr><td>Sun, Apr 12, 2026</td></tr><tr><td>UA 987</td><td>DEN 6:15 PM</td><td>AUS 9:45 PM</td></tr></table><p>Seat assignments and boarding passes are in the app.</p></body></html>"},
+ {"subject": "Fwd: Reservation confirmed - Pinecrest Suites Denver Airport", "from": "Pat Sample <pat@example.org>", "date": "Tue, 03 Mar 2026 09:00:00 -0600",
+  "body": "---------- Forwarded message ---------\nPinecrest Suites Denver Airport\n1200 Example Rd, Denver CO 80249\nPhone (303) 555-0142\nConfirmation number: 55512345\nCheck-in: Friday, April 10, 2026 (from 3:00 PM)\nCheck-out: Sunday, April 12, 2026 (by 11:00 AM)\n2 Queen Suite, non-smoking"},
+ {"subject": "Your scheduled ride is booked", "from": "Example Car Service <rides@example.net>", "date": "Wed, 04 Mar 2026 12:00:00 -0600",
+  "body": "Car service from DEN to Pinecrest Suites on Apr 10, 2026 at 9:15 AM. Total charged: $68.00. Booking ID: RIDE7781"},
+ {"subject": "Spring deals on flights", "from": "Deals <deals@example.com>", "date": "Thu, 05 Mar 2026 08:00:00 -0600",
+  "body": "Save 20% on spring getaways. Book now."}
+]

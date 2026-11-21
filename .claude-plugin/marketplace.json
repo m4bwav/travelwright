@@ -1,0 +1,8 @@
+{
+  "name": "travelwright",
+  "owner": { "name": "Mark Rogers" },
+  "metadata": { "description": "A skill that plans a family trip from the bookings in your email and writes a dated packing and logistics checklist" },
+  "plugins": [
+    { "name": "travelwright", "source": "./", "description": "Reads bookings from email, hosts from Drive and travellers' needs from family notes, then writes a dated checklist with sourced local facts" }
+  ]
+}

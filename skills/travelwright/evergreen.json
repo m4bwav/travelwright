@@ -1,0 +1,98 @@
+{
+  "evergreen": "1.0",
+  "name": "travelwright",
+  "kind": "skill",
+  "main": "SKILL.md",
+  "files": {
+    "research": "RESEARCH.md",
+    "changelog": "CHANGELOG.md",
+    "learnings": "LEARNINGS.md",
+    "tests": "TESTS.md"
+  },
+  "protocol": "plugin",
+  "source": null,
+  "topic": "Family trip planning: car-seat laws by state, TSA rules, cannabis and medicine travel rules, rideshare vs rental costs, booking email formats",
+  "tier": "moderate",
+  "interval_days": 30,
+  "last_checked": "2026-11-20",
+  "next_due": "2026-12-20",
+  "verify_at_use": true,
+  "search_plan": "tsa.gov What Can I Bring and REAL ID; state car-seat statutes (NHTSA, GHSA tables); Uber/Lyft car-seat pages; airline confirmation email format changes",
+  "volatile_claims": [
+    {
+      "claim": "NY requires a child restraint until the 8th birthday (VTL 1229-c)",
+      "checked": "2026-11-20",
+      "recheck_days": 180
+    },
+    {
+      "claim": "TSA liquids rule is 3.4 oz containers in one quart bag; medical liquids exempt when declared",
+      "checked": "2026-11-20",
+      "recheck_days": 90
+    },
+    {
+      "claim": "REAL ID required for adults on domestic flights since 2025-05-07",
+      "checked": "2026-11-20",
+      "recheck_days": 180
+    },
+    {
+      "claim": "Uber Car Seat (NYC, LA) is a Nuna RAVA convertible, rear- or forward-facing, 5-65 lb, surcharge",
+      "checked": "2026-11-20",
+      "recheck_days": 60
+    },
+    {
+      "claim": "Cannabis remains federally illegal at airports; TSA refers to police",
+      "checked": "2026-11-20",
+      "recheck_days": 60
+    },
+    {
+      "claim": "NYC taxis/liveries exempt from child restraint for under 8 (311 KA-03372); rideshare unclear",
+      "checked": "2026-11-20",
+      "recheck_days": 180
+    },
+    {
+      "claim": "Japan bans amphetamine ADHD medicines even with prescription; Vyvanse needs advance permit",
+      "checked": "2026-11-20",
+      "recheck_days": 180
+    }
+  ],
+  "contradiction": null,
+  "events": [],
+  "streak": {
+    "quiet": 0,
+    "pinned_min": 0,
+    "pinned_max": 0,
+    "vau_quiet": 0
+  },
+  "history": [
+    {
+      "date": "2026-11-20",
+      "m": null,
+      "interval_after": 30,
+      "note": "created"
+    },
+    {
+      "date": "2026-11-20",
+      "m": "medium",
+      "interval_after": 30,
+      "note": "first refresh: verified Uber car seat, NYC taxi exemption, Japan stimulants"
+    }
+  ],
+  "counts": {
+    "learnings": 10,
+    "changes": 2,
+    "research": 2,
+    "tests": 1
+  },
+  "consolidate_every": 25,
+  "tests": {
+    "last_run": "2026-11-20",
+    "harness": "unit + fixture action case",
+    "env": "local",
+    "cases": 1,
+    "passed": 1,
+    "failed": 0,
+    "failing": [],
+    "last_failure": null,
+    "research_after_days": null
+  }
+}

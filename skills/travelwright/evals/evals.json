@@ -1,0 +1,24 @@
+{
+  "skill": "travelwright",
+  "triggers": [
+    "help me pack for our trip next week",
+    "plan our Thanksgiving trip to Denver for the family",
+    "make a packing list for the kids for the flight Saturday",
+    "are we ready for the trip? check what's booked",
+    "what do we still need to do before we fly out Friday"
+  ],
+  "decoys": [
+    {"prompt": "find me the cheapest flight to Denver in April", "owner": "none"},
+    {"prompt": "what's the weather in Denver tomorrow", "owner": "none"},
+    {"prompt": "tell me about the history of Brooklyn", "owner": "historywright"},
+    {"prompt": "when is my nephew's birthday", "owner": "family-tree"},
+    {"prompt": "reschedule my tasks for the week", "owner": "schedule-manager"}
+  ],
+  "actions": [
+    {
+      "id": "A1",
+      "prompt": "Booking emails for our April trip are saved in evals/fixtures/emails.json and family pages in evals/fixtures/people. Build the trip checklist into OUT_DIR.",
+      "evidence": "OUT_DIR holds trip.json (4 items: 2 flights dated 2026-04-10 and 2026-04-12, a stay at Pinecrest Suites with confirmation 55512345, a paid ride; the deals email skipped) and a checklist .md that names the 2026-04-11 birthday, marks unverified lines, and has no late-arrival warning; nothing written inside the plugin repo"
+    }
+  ]
+}
