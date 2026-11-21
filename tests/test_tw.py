@@ -83,6 +83,7 @@ class Render(unittest.TestCase):
         md = tw.render(tw.extract([EMAILS]), PEOPLE, today="2026-04-08")
         self.assertIn("Japan: do not carry amphetamine", md)
         self.assertIn("UAE:", md)
+        self.assertIn("one month's supply", md)
 
     def test_id_and_passport_lines(self):
         md = tw.render(tw.extract([EMAILS]), PEOPLE, today="2026-04-08")
