@@ -38,6 +38,9 @@ NOT_IATA = {"THE", "AND", "FOR", "YOU", "ARE", "NOT", "ALL", "PDT", "PST", "EST"
             "WIFI", "APP", "NEW", "VIA", "PRE", "CHK", "ONE", "TWO", "QTY", "TAX", "FEE", "PNR"}
 TIME = re.compile(r"\b(\d{1,2}:\d{2}\s?(?:[AaPp]\.?[Mm]\.?)?)")
 PHONE = re.compile(r"\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b")
+PHONE11 = re.compile(r"\b1\d{10}\b")  # '19995550100' as some hotel mails print it
+IATA_LINE = re.compile(r"^\s*([A-Z]{3})\s*$", re.M)
+TIME_LINE = re.compile(r"^\s*(\d{1,2}:\d{2}\s?[AaPp]\.?[Mm]\.?)\s*$", re.M)
 ADDRESS = re.compile(r"\b\d{1,6}\s+[A-Z0-9][\w.' -]{2,40}?\s(?:St|Street|Rd|Road|Ave|Avenue|Blvd|Boulevard|Dr|Drive|Ln|Lane|Way|Pl|Place|Pkwy|Parkway|Hwy|Highway|Ct|Court)\b\.?[^\n]{0,60}?\b[A-Z]{2}\s\d{5}\b")
 
 
@@ -161,21 +164,45 @@ def labelled(text, *labels, rx=None):
     return None
 
 
+def _vertical_leg(text, m, end):
+    """Stacked layout (American's plain text): origin code, city, time on their own lines, then
+    the flight number alone on a line, then destination code, city, time. (from, to, dep, arr) or None."""
+    ls = text.rfind("\n", 0, m.start()) + 1
+    le = text.find("\n", m.end())
+    le = len(text) if le < 0 else le
+    if text[ls:le].strip() != m.group(0).strip():
+        return None
+    before, after = text[max(0, ls - 160): ls], text[le: min(end, le + 200)]
+    o, d = IATA_LINE.findall(before), IATA_LINE.findall(after)  # alone on a line: SAT is San Antonio
+    if not o or not d:
+        return None
+    tb, ta = TIME_LINE.findall(before), TIME_LINE.findall(after)
+    return o[-1], d[0], (tb[-1].strip() if tb else None), (ta[0].strip() if ta else None)
+
+
 def extract_flights(text, year, conf, source):
     legs, seen = [], set()
-    for m in FLIGHT_NO.finditer(text):
+    matches = list(FLIGHT_NO.finditer(text))
+    for k, m in enumerate(matches):
         key = (m.group(1), m.group(2))
         if key in seen:
             continue
         seen.add(key)
-        seg = text[m.start(): m.start() + 260]
-        codes = [c for c in IATA.findall(seg) if c not in NOT_IATA and c not in AIRLINES]
-        times = TIME.findall(seg)
+        end = matches[k + 1].start() if k + 1 < len(matches) else len(text)
+        v = _vertical_leg(text, m, end)
+        if v:
+            frm, to, dep, arr = v
+        else:
+            seg = text[m.start(): m.start() + 260]
+            codes = [c for c in IATA.findall(seg) if c not in NOT_IATA and c not in AIRLINES]
+            times = TIME.findall(seg)
+            frm, to = (codes[0] if codes else None), (codes[1] if len(codes) > 1 else None)
+            dep = times[0].strip() if times else None
+            arr = times[1].strip() if len(times) > 1 else None
         legs.append({
             "kind": "flight", "airline": AIRLINES[m.group(1)], "flight": "%s %s" % key,
             "date": date_near(text, m.start(), year),
-            "from": codes[0] if codes else None, "to": codes[1] if len(codes) > 1 else None,
-            "depart": times[0].strip() if times else None, "arrive": times[1].strip() if len(times) > 1 else None,
+            "from": frm, "to": to, "depart": dep, "arrive": arr,
             "confirmation": conf, "source": source, "verified": False})
     return legs
 
@@ -188,14 +215,39 @@ def extract_stay(text, year, conf, source, subject):
         mm = re.search(r"([A-Z][\w&'.-]*(?:\s+[A-Z&][\w&'.-]*){0,7}\s(?:Hotel|Inn|Suites|Resort|Lodge)(?:[\w &'.-]{0,40})?)", line)
         if mm:
             name = re.sub(r"\s+", " ", mm.group(1)).strip(" -")
+            name = re.sub(r"\s+(?:is|has been)\s+(?:conf|book|reserv)\w*.*$", "", name, flags=re.I)
             break
-    tin = re.search(r"check-?in[^\n]{0,40}?(\d{1,2}(?::\d{2})?\s?[AaPp][Mm])", text, re.I)
-    tout = re.search(r"check-?out[^\n]{0,40}?(\d{1,2}(?::\d{2})?\s?[AaPp][Mm])", text, re.I)
+    if not (cin and parse_date(cin, year)) or not (cout and parse_date(cout, year)):
+        # 'Dates  21 Nov 2026 *- * 27 Nov 2026' (IHG) when the labels carry only times
+        d1 = r"(\d{1,2}\s+[A-Za-z]{3,9}\.?\s+20\d\d|[A-Za-z]{3,9}\.?\s+\d{1,2},?\s+20\d\d)"
+        rng = re.search(d1 + r"[\s*]*[-–][\s*]*" + d1, text)
+        if rng and parse_date(rng.group(1), year) and parse_date(rng.group(2), year):
+            cin, cout = rng.group(1), rng.group(2)
+    tin = re.search(r"check[- ]?in[^\n]{0,40}?(\d{1,2}(?::\d{2})?\s?[AaPp][Mm])", text, re.I)
+    tout = re.search(r"check[- ]?out[^\n]{0,40}?(\d{1,2}(?::\d{2})?\s?[AaPp][Mm])", text, re.I)
     return {"kind": "stay", "name": name or (subject[:80] if subject else None),
             "check_in": parse_date(cin, year) if cin else None, "check_out": parse_date(cout, year) if cout else None,
             "check_in_time": tin.group(1) if tin else None, "check_out_time": tout.group(1) if tout else None,
-            "address": first(ADDRESS, text, 0), "phone": first(PHONE, text, 0),
+            "address": first(ADDRESS, text, 0) or address_block(text),
+            "phone": first(PHONE, text, 0) or first(PHONE11, text, 0),
             "confirmation": conf, "source": source, "verified": False}
+
+
+def address_block(text):
+    """'Address:' followed by street, city, state and zip on separate lines, link lines between."""
+    m = re.search(r"\baddress\s*:\s*\n", text, re.I)
+    if not m:
+        return None
+    parts = []
+    for line in text[m.end(): m.end() + 2000].split("\n"):
+        line = line.strip().rstrip(",").strip()
+        if not line or line.startswith("<") or line.startswith("[image"):
+            continue
+        parts.append(line)
+        if re.search(r"\b\d{5}\b", line) or len(parts) >= 5:
+            break
+    val = re.sub(r"\s+", " ", " ".join(parts))
+    return val if re.search(r"\b[A-Z]{2}\s+\d{5}\b", val) else None
 
 
 def extract_car(text, year, conf, source):
@@ -227,9 +279,10 @@ def extract(paths):
             got = []
             if FLIGHT_NO.search(whole) and FLIGHT_WORDS.search(whole):
                 got += extract_flights(whole, year, conf, source)
-            if not got and CAR_WORDS.search(whole):
+            # hotel mails advertise 'Car rental': a stay wins over car and ride words
+            is_stay = re.search(r"check[- ]?in|check[- ]?out", whole, re.I)
+            if not got and CAR_WORDS.search(whole) and not is_stay:
                 got.append(extract_car(whole, year, conf, source))
-            is_stay = re.search(r"check-?in|check-?out", whole, re.I)
             if not got and RIDE_WORDS.search(whole) and not is_stay:
                 got.append(extract_ride(whole, year, conf, source))
             if not got and HOTEL_WORDS.search(whole):
