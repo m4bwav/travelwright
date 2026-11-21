@@ -17,8 +17,9 @@ A trip plan built from the bookings and family facts the agent can already reach
 2. **Save, then extract.** Write the matching messages to a JSON file in the scratchpad and run `TW extract <file> --people <family people dir> -o trip.json`. Long flight emails (80K+ characters) go through the script, never read whole. Then open each item's source email and set `verified: true` only for fields you checked.
 3. **Hosts and places.** Hosts' addresses: Drive (an address list sheet) or the family tree. Work out the real distances between stay, hosts and the places named.
 4. **People.** For each traveller read their family tree page: age at travel, medicines (and which are school-only), diet, sensory needs, car seat by age and the destination state's law. Abroad, flag controlled medicines as 'do not carry' where banned (amphetamines to Japan) and name the permit route where one exists (UAE e-approval or declare at arrival); see RESEARCH.
-5. **Dates.** `TW events` lists birthdays and US holidays inside the trip; plan for each.
-6. **Render and finish.** `TW render trip.json --people <dir> -o <trips folder>/<date>-<place>/packing-plan.md`, then fill in the per-person and local sections by hand.
+5. **Documents and fees.** Each adult's REAL ID or passport (no ID: $45 TSA ConfirmID per adult); abroad, every passport's expiry against the destination's rule. Count fees that change the plan (ConfirmID, bags, rental extras); points and award booking are out of scope.
+6. **Dates.** `TW events` lists birthdays and US holidays inside the trip; plan for each.
+7. **Render and finish.** `TW render trip.json --people <dir> -o <trips folder>/<date>-<place>/packing-plan.md`, then fill in the per-person and local sections by hand.
 
 ## Rules
 

@@ -1,5 +1,9 @@
 # Changelog: travelwright
 
+## 0.3.0 (2026-11-20)
+- Documents and fees (R-20261120-4): checklist lines for REAL ID, the $45 TSA ConfirmID fee per adult without one, child ID rules and passport validity; SKILL step 5. Points and award booking ruled out of scope.
+- UAE amphetamine salts: list still unreachable; plan now says get e-approval rather than declare at arrival.
+
 ## 0.2.0 (2026-11-20)
 - Public release: README for new users (install, quick start, privacy), banner, marketplace.json for `/plugin marketplace add m4bwav/travelwright`, plugin metadata.
 - History restarted at one root commit so no private test term from the early private history ships.
