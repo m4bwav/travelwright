@@ -359,7 +359,7 @@ def render(trip, people_dir=None, today=None):
         if e["kind"] == "birthday":
             lines.append("- [ ] %s: gift packed or shipped, plan for the day." % e["event"])
     lines += ["- [ ] Count every daily medicine for the trip length plus spares; leave school-only ones home.",
-              "- [ ] Flying abroad with controlled medicines (ADHD stimulants, strong painkillers)? Japan: do not carry amphetamine medicines at all, even with a prescription; others need a permit ahead. UAE: get e-approval before the trip or declare at arrival with the prescription and a medical report.",
+              "- [ ] Flying abroad with controlled medicines (ADHD stimulants, strong painkillers)? Japan: do not carry amphetamine medicines at all, even with a prescription; others need a permit ahead. UAE: amphetamine and other ADHD stimulant medicines are allowed (Schedule II) up to the stay or one month's supply, whichever is less, with the prescription and an attested medical report; get e-approval before the trip.",
               "- [ ] IDs: every adult (18+) needs a REAL ID or passport for domestic flights; without one TSA ConfirmID costs $45 per adult (pay.gov, valid 10 days, may still be refused). Children under 18 with an adult need no ID domestically.",
               "- [ ] Abroad: a passport for every traveller, children included; check its expiry against the destination's rule (many want 6 months left). A child's passport (under 16) lasts 5 years and renewing needs both parents in person.",
               "- [ ] Download shows, games and offline maps.", "",

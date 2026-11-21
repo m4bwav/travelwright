@@ -1,5 +1,8 @@
 # Changelog: travelwright
 
+## 0.3.1 (2026-11-20)
+- UAE amphetamine medicines settled (R-20261120-5): Schedule II on the official list, allowed for the stay or one month at most with prescription and attested medical report; checklist line and test updated.
+
 ## 0.3.0 (2026-11-20)
 - Documents and fees (R-20261120-4): checklist lines for REAL ID, the $45 TSA ConfirmID fee per adult without one, child ID rules and passport validity; SKILL step 5. Points and award booking ruled out of scope.
 - UAE amphetamine salts: list still unreachable; plan now says get e-approval rather than declare at arrival.
