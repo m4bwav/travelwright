@@ -371,6 +371,21 @@ def day(iso):
     return dt.date.fromisoformat(iso).strftime("%a %b %d").replace(" 0", " ") if iso else "date unknown"
 
 
+# Large US airports; a trip whose every flight code is here counts as domestic.
+US_AIRPORTS = set("""ATL LAX ORD DFW DEN JFK SFO SEA LAS MCO EWR CLT PHX IAH MIA BOS MSP FLL DTW PHL LGA BWI SLC
+SAN IAD DCA MDW TPA PDX HNL AUS BNA DAL STL HOU OAK SJC SMF MSY RDU SNA MCI SAT CLE PIT IND CMH CVG
+RSW JAX OGG ABQ BUR ONT BDL MKE OMA TUL OKC ELP BOI ANC RNO PBI MEM RIC ORF CHS SAV BUF ALB SYR ROC
+HPN ISP PVD MHT PWM BTV SDF LIT BHM GSP TUS SJU""".split())
+
+
+def is_abroad(trip):
+    """trip['abroad'] wins when set; else any flight code outside US_AIRPORTS (or no flights) counts."""
+    if trip.get("abroad") is not None:
+        return bool(trip["abroad"])
+    codes = [c for i in trip["items"] if i["kind"] == "flight" for c in (i.get("from"), i.get("to")) if c]
+    return not codes or any(c not in US_AIRPORTS for c in codes)
+
+
 def render(trip, people_dir=None, today=None):
     today = today or dt.date.today().isoformat()
     t = trip["trip"]
@@ -411,11 +426,14 @@ def render(trip, people_dir=None, today=None):
     for e in ev:
         if e["kind"] == "birthday":
             lines.append("- [ ] %s: gift packed or shipped, plan for the day." % e["event"])
-    lines += ["- [ ] Count every daily medicine for the trip length plus spares; leave school-only ones home.",
-              "- [ ] Flying abroad with controlled medicines (ADHD stimulants, strong painkillers)? Japan: do not carry amphetamine medicines at all, even with a prescription; others need a permit ahead. UAE: amphetamine and other ADHD stimulant medicines are allowed (Schedule II) up to the stay or one month's supply, whichever is less, with the prescription and an attested medical report; get e-approval before the trip.",
-              "- [ ] IDs: every adult (18+) needs a REAL ID or passport for domestic flights; without one TSA ConfirmID costs $45 per adult (pay.gov, valid 10 days, may still be refused). Children under 18 with an adult need no ID domestically.",
-              "- [ ] Abroad: a passport for every traveller, children included; check its expiry against the destination's rule (many want 6 months left). A child's passport (under 16) lasts 5 years and renewing needs both parents in person.",
-              "- [ ] Download shows, games and offline maps.", "",
+    abroad = is_abroad(trip)
+    lines.append("- [ ] Count every daily medicine for the trip length plus spares; leave school-only ones home.")
+    if abroad:
+        lines.append("- [ ] Flying abroad with controlled medicines (ADHD stimulants, strong painkillers)? Japan: do not carry amphetamine medicines at all, even with a prescription; others need a permit ahead. UAE: amphetamine and other ADHD stimulant medicines are allowed (Schedule II) up to the stay or one month's supply, whichever is less, with the prescription and an attested medical report; get e-approval before the trip.")
+    lines.append("- [ ] IDs: every adult (18+) needs a REAL ID or passport for domestic flights; without one TSA ConfirmID costs $45 per adult (pay.gov, valid 10 days, may still be refused). Children under 18 with an adult need no ID domestically.")
+    if abroad:
+        lines.append("- [ ] Abroad: a passport for every traveller, children included; check its expiry against the destination's rule (many want 6 months left). A child's passport (under 16) lasts 5 years and renewing needs both parents in person.")
+    lines += ["- [ ] Download shows, games and offline maps.", "",
               "## Carry-on", "", "- [ ] IDs, boarding passes, chargers, medicines in original bottles, snacks, a change of clothes per child.", "",
               "## Clothes", "", "- [ ] Check the forecast the morning you leave (weather.gov); say so if no forecast exists yet.", "",
               "## Per person", "", "- [ ] One line per traveller from their FamilyTree page: medicines, diet, sensory needs, car seat by age at travel.", "",
