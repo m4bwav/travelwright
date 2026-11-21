@@ -1,6 +1,6 @@
 {
   "name": "travelwright",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Plan family trips from what is already written down: bookings in email, hosts in Drive, people's needs in the family tree, then a dated checklist with sourced local facts. tw.py extracts flights, stays, cars and rides from saved email JSON and renders the checklist.",
   "skills": "./skills",
   "author": {"name": "Mark Rogers"},

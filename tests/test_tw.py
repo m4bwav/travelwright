@@ -108,16 +108,26 @@ class Render(unittest.TestCase):
         self.assertNotIn("Late arrival", md)  # 9:45 PM is the return leg, not the check-in day
 
     def test_abroad_controlled_medicine_line(self):
-        md = tw.render(tw.extract([EMAILS]), PEOPLE, today="2026-04-08")
+        trip = tw.extract([EMAILS])
+        trip["items"][0]["to"] = "NRT"  # any non-US code makes it abroad
+        md = tw.render(trip, PEOPLE, today="2026-04-08")
         self.assertIn("Japan: do not carry amphetamine", md)
         self.assertIn("UAE:", md)
         self.assertIn("one month's supply", md)
+        self.assertIn("6 months left", md)
 
-    def test_id_and_passport_lines(self):
+    def test_domestic_skips_abroad_lines(self):
+        md = tw.render(tw.extract([EMAILS]), PEOPLE, today="2026-04-08")  # AUS-DEN
+        self.assertNotIn("Japan:", md)
+        self.assertNotIn("6 months left", md)
+        trip = tw.extract([EMAILS])
+        trip["abroad"] = True  # explicit flag wins
+        self.assertIn("Japan:", tw.render(trip, PEOPLE, today="2026-04-08"))
+
+    def test_id_lines(self):
         md = tw.render(tw.extract([EMAILS]), PEOPLE, today="2026-04-08")
         self.assertIn("ConfirmID costs $45", md)
         self.assertIn("Children under 18 with an adult need no ID", md)
-        self.assertIn("6 months left", md)
 
     def test_late_arrival_on_check_in_day(self):
         trip = {"trip": {"start": "2026-11-21", "end": "2026-11-27"}, "items": [

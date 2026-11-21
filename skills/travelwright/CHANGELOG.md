@@ -1,5 +1,8 @@
 # Changelog: travelwright
 
+## 0.4.1 (2026-11-20)
+- render shows the passport and controlled-medicine lines only for trips abroad (any flight code outside a list of large US airports, no flights, or `"abroad": true` in trip.json). The first real trip, a domestic one, printed them.
+
 ## 0.4.0 (2026-11-20)
 - First run on real saved Gmail (2 bookings, 5 items). Fixed: stacked airline layouts (code, city, time, then the flight number alone on a line) gave wrong origin and destination; a hotel mail advertising "Car rental" was read as a car; stay dates written as a range ("15 Oct 2026 - 19 Oct 2026") and "Check in" with a space; addresses split over lines with map links between; 11-digit phone numbers; "is confirmed" trimmed from the stay name. Synthetic regression fixture evals/fixtures/emails-stacked.json and 3 tests.
 

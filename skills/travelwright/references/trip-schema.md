@@ -22,3 +22,5 @@ Written by `tw.py extract`. Every item starts `verified: false`; the agent sets 
 - A missing field is `null`; `render` lists them under Open questions.
 - Email input: one message or a list; each message is the Gmail connector's output, the raw Gmail API shape (`payload`), or `{subject, from, date, body}`. HTML is stripped.
 - Birthdays come from `- Birthdate: YYYY-MM-DD` (or `Mon D`) lines in the people folder's markdown pages; `?` is skipped.
+
+Optional `"abroad": true|false` at the top level overrides the guess `render` makes (since 0.4.1): a trip counts as abroad when any flight code is outside the built-in list of large US airports, or when it has no flights. Domestic trips skip the passport and controlled-medicine lines. Set it by hand for a small US airport or a drive across a border.
