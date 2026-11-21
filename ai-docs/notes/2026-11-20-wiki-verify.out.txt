@@ -1,0 +1,9 @@
+{"wrote": "out/trip.json", "items": 4, "skipped": 1, "trip": {"start": "2026-04-10", "end": "2026-04-12"}}
+[
+  {
+    "date": "2026-04-11",
+    "event": "Alex Sample's birthday (turns 8)",
+    "kind": "birthday"
+  }
+]
+{"wrote": "out/packing-plan.md"}
