@@ -84,6 +84,12 @@ class Render(unittest.TestCase):
         self.assertIn("Japan: do not carry amphetamine", md)
         self.assertIn("UAE:", md)
 
+    def test_id_and_passport_lines(self):
+        md = tw.render(tw.extract([EMAILS]), PEOPLE, today="2026-04-08")
+        self.assertIn("ConfirmID costs $45", md)
+        self.assertIn("Children under 18 with an adult need no ID", md)
+        self.assertIn("6 months left", md)
+
     def test_late_arrival_on_check_in_day(self):
         trip = {"trip": {"start": "2026-11-21", "end": "2026-11-27"}, "items": [
             {"kind": "flight", "airline": "X", "flight": "AA 1", "date": "2026-11-21", "arrive": "11:44 PM", "verified": False},

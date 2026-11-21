@@ -360,6 +360,8 @@ def render(trip, people_dir=None, today=None):
             lines.append("- [ ] %s: gift packed or shipped, plan for the day." % e["event"])
     lines += ["- [ ] Count every daily medicine for the trip length plus spares; leave school-only ones home.",
               "- [ ] Flying abroad with controlled medicines (ADHD stimulants, strong painkillers)? Japan: do not carry amphetamine medicines at all, even with a prescription; others need a permit ahead. UAE: get e-approval before the trip or declare at arrival with the prescription and a medical report.",
+              "- [ ] IDs: every adult (18+) needs a REAL ID or passport for domestic flights; without one TSA ConfirmID costs $45 per adult (pay.gov, valid 10 days, may still be refused). Children under 18 with an adult need no ID domestically.",
+              "- [ ] Abroad: a passport for every traveller, children included; check its expiry against the destination's rule (many want 6 months left). A child's passport (under 16) lasts 5 years and renewing needs both parents in person.",
               "- [ ] Download shows, games and offline maps.", "",
               "## Carry-on", "", "- [ ] IDs, boarding passes, chargers, medicines in original bottles, snacks, a change of clothes per child.", "",
               "## Clothes", "", "- [ ] Check the forecast the morning you leave (weather.gov); say so if no forecast exists yet.", "",
