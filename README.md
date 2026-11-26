@@ -16,7 +16,7 @@ Local facts in the checklist (car-seat laws, airport rides, store hours) come wi
 
 ## Install
 
-As a Claude Code plugin:
+In Claude Code:
 
     /plugin marketplace add m4bwav/travelwright
     /plugin install travelwright@travelwright
